@@ -3,8 +3,9 @@
 
 struct Points
 {
-    int x;
-    int y;
+    int x, y;
+
+    Points(int x, int y);
 };
 
 class Figure
@@ -15,9 +16,7 @@ class Figure
     public:
         Figure();
 
-        Figure(int tops);
-
-        void SetPoints();
+        Figure(Points* points, int* tops);
 
         virtual void GetName();
 
@@ -30,20 +29,10 @@ class Figure
 
 class Rectangle : public Figure
 {
-    protected:
-        int* width = nullptr;
-        int* height = nullptr;
-        using  Figure::SetPoints;
     public:
         Rectangle(int w, int h);
 
         void GetName();
-
-        virtual float GetSquare();
-
-        virtual float GetPerimeter();
-
-        ~Rectangle();
 };
 
 class Square : public Rectangle
@@ -52,17 +41,12 @@ class Square : public Rectangle
         Square(int side);
 
         void GetName();
-
-        float GetSquare();
-
-        float GetPerimeter();
 };
 
 class Circle : public Figure
 {
     private:
         int* radius = nullptr;
-        using  Figure::SetPoints;
     public:
         Circle(int radius);
 
@@ -80,7 +64,6 @@ class Ellipse : public Figure
     private:
         int* r = nullptr;
         int* R = nullptr;
-        using  Figure::SetPoints;
     public:
         Ellipse(int r, int R);
 

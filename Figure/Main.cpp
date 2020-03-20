@@ -28,10 +28,7 @@ int main()
         std::cout << "" << std::endl;
     }
 
-    for (int i = 0; i < count; i++)
-    {
-        delete figure[i];
-    }
-
+    delete [] figure; 
+ 
     return 0;
 }

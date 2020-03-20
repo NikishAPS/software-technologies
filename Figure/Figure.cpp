@@ -1,35 +1,21 @@
 ﻿#include <iostream>
 #include "Figure.h"
 
+// Points
+//======================================================================================================================================================================================
+Points::Points(int x, int y)
+    :x(x), y(y) {}
+//======================================================================================================================================================================================
+
 
 // Figure
 //======================================================================================================================================================================================
 Figure::Figure() {}
 
-Figure::Figure(int tops)
+Figure::Figure(Points* points, int* tops)
 {
-    try
-    {
-        if (tops < 3)
-            throw "Tops count error";
-        else
-        {
-            this->tops = new int(tops);
-            points = (Points*)malloc(*this->tops * sizeof(Points));
-        }
-    }
-    catch (const char* msg)
-    {
-        std::cout << msg << std::endl;
-    }
-}
-
-void Figure::SetPoints()
-{
-    for (int i = 0; i < *tops; i++)
-    {
-        std::cin >> points[i].x >> points[i].y;
-    }
+    this->points = points;
+    this->tops = tops;
 }
 
 void Figure::GetName()
@@ -65,8 +51,8 @@ float Figure::GetPerimeter()
 
 Figure::~Figure()
 {
+    delete[] points;
     delete tops;
-    free(points);
 }
 //======================================================================================================================================================================================
 
@@ -74,30 +60,11 @@ Figure::~Figure()
 // Rectangle
 //======================================================================================================================================================================================
 Rectangle::Rectangle(int w, int h)
-{
-    width = new int(w);
-    height = new int(h);
-}
+    : Figure(new Points[4]{ Points(0, 0), Points(w, 0), Points(w, h), Points(0, h) }, new int(4)) {}
 
 void Rectangle::GetName()
 {
     std::cout << "Прямоугольник" << std::endl;
-}
-
-float Rectangle::GetSquare()
-{
-    return *width * *height;
-}
-
-float Rectangle::GetPerimeter()
-{
-    return 2 * (*width + *height);
-}
-
-Rectangle::~Rectangle()
-{
-    delete width;
-    delete height;
 }
 //======================================================================================================================================================================================
 
@@ -112,15 +79,6 @@ void Square::GetName()
     std::cout << "Квадрат" << std::endl;
 }
 
-float Square::GetSquare()
-{
-    return pow(*width, 2);
-}
-
-float Square::GetPerimeter()
-{
-    return 4 * *width;
-}
 //======================================================================================================================================================================================
 
 
@@ -178,7 +136,6 @@ float Ellipse::GetPerimeter()
 
 Ellipse::~Ellipse()
 {
-    delete r;
-    delete R;
+    delete r, R;
 }
 //======================================================================================================================================================================================
