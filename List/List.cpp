@@ -2,38 +2,38 @@
 
 template<typename type>
 class List {
-	private:
-		template<typename type>
-		class Node {
-			public:
-				type data;
-				Node* next;
-				Node* prev;
+private:
+	template<typename type>
+	class Node {
+	public:
+		type data;
+		Node* next;
+		Node* prev;
 
-				Node(type data, Node* next = nullptr, Node* prev = nullptr)
-				{
-					this->data = data;
-					this->next = next;
-					this->prev = prev;
-				}	
-		};
+		Node(type data, Node* next = nullptr, Node* prev = nullptr)
+		{
+			this->data = data;
+			this->next = next;
+			this->prev = prev;
+		}
+	};
 
-		size_t size;
-		Node<type>* head;
-		Node<type>* tail;
+	size_t size;
+	Node<type>* head;
+	Node<type>* tail;
 
-	public:	
-		List();
-		~List();
+public:
+	List();
+	~List();
 
-		void Add(type data);
-		void AddHead(type data);
-		type& operator[](const int index);
-		size_t GetSize();
-		void Insert(type data, int index);
-		type Peek();
-		void Delete(int index);
-		void Clear();
+	void Add(type data);
+	void AddHead(type data);
+	type& operator[](const int index);
+	size_t GetSize();
+	void Insert(type data, int index);
+	type Peek();
+	void Delete(int index);
+	void Clear();
 };
 
 template<typename type>
@@ -102,7 +102,7 @@ type& List<type>::operator[](const int index)
 			{
 				current = current->next;
 				iterator++;
-			}		
+			}
 		}
 	}
 	else
@@ -163,7 +163,7 @@ void List<type>::Insert(type data, int index)
 		{
 			previous = tail;
 
-			for (int i = size-1; i > index; i--)
+			for (int i = size - 1; i > index; i--)
 			{
 				previous = previous->prev;
 			}
@@ -171,7 +171,7 @@ void List<type>::Insert(type data, int index)
 			current = new Node<type>(data, previous, previous->prev);
 			previous->prev->next = current;
 			previous->prev = current;
-		}	
+		}
 	}
 
 	size++;
@@ -192,7 +192,7 @@ void List<type>::Delete(int index)
 		head = head->next;
 		delete temp;
 	}
-	else if (index == size-1)
+	else if (index == size - 1)
 	{
 		Node<type>* temp = tail;
 		tail = tail->prev;
@@ -214,13 +214,13 @@ void List<type>::Delete(int index)
 
 			toDelete = previous->next;
 			previous->next = toDelete->next;
-			toDelete->next->prev = previous;			
+			toDelete->next->prev = previous;
 		}
 		else
 		{
 			previous = tail;
 
-			for (int i = size-1; i > index + 1; i--)
+			for (int i = size - 1; i > index + 1; i--)
 			{
 				previous = previous->prev;
 			}
@@ -250,17 +250,16 @@ void List<type>::Clear()
 int main()
 {
 	List<int> list;
-	
+
 	for (int i = 0; i < 10; i++)
 		list.Add(i * 10);
-	
+
 	list.Insert(65, 7);
 	//list.AddHead(-10);
 	list.Delete(10);
-	
+
 	for (int i = 0; i < list.GetSize(); i++)
 		std::cout << list[i] << std::endl;
-		
 
 	list.Clear();
 
